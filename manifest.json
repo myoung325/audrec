@@ -2,7 +2,7 @@
   "name": "Audio Recorder",
   "short_name": "Audio Recorder",
   "description": "A simple audio recording app",
-  "start_url": "/",
+  "start_url": "/audrec/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0088cc",
