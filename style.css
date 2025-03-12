@@ -24,6 +24,40 @@ button:disabled {
   background-color: #ccc;
 }
 
+.sound-clips {
+  margin-top: 30px; /* Adds some space above the recordings */
+}
+
+.clip {
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.clip p {
+  margin: 5px 0;
+}
+
+.clip .button-container {
+  display: flex;
+  justify-content: space-between; /* Makes the buttons appear left and right */
+  width: 100%; /* Ensures it takes up full width of the parent */
+  gap: 10px; /* Space between buttons */
+  margin-top: 10px;
+}
+
+.clip button {
+  flex: 1; /* Ensures both buttons take equal width */
+  max-width: 48%; /* Ensures buttons are not too stretched */
+  margin: 0; /* Removes extra margin */
+}
+
 audio {
-  margin-top: 20px;
+  margin-top: 10px;
+  width: 100%; /* Makes sure the audio player fits the container */
 }
