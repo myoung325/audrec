@@ -27,10 +27,24 @@ function startRecording() {
   }
 }
 
-// Function to initialize MediaRecorder
+// Function to initialize MediaRecorder for .webm format
 function startMediaRecorder(stream) {
-  mediaRecorder = new MediaRecorder(stream);
+  // Create a MediaRecorder instance with the MIME type 'audio/webm'
+  const options = { mimeType: 'audio/webm' };
+
+  // Check if MediaRecorder supports the specified MIME type
+  if (MediaRecorder.isTypeSupported(options.mimeType)) {
+    mediaRecorder = new MediaRecorder(stream, options);
+  } else {
+    console.error("The MIME type 'audio/webm' is not supported in your browser.");
+    return;
+  }
+
   mediaRecorder.start();
+
+  // Change Record button style when recording starts
+  recordButton.style.backgroundColor = 'red';  // Change to red when recording
+  recordButton.style.color = 'white';  // Make text white when recording
 
   recordButton.disabled = true;
   stopButton.disabled = false;
@@ -40,7 +54,7 @@ function startMediaRecorder(stream) {
   };
 
   mediaRecorder.onstop = () => {
-    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+    const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType }); // Use the mimeType from mediaRecorder
     const audioUrl = URL.createObjectURL(audioBlob);
 
     // Create a new clip container for the recording
@@ -85,9 +99,17 @@ function startMediaRecorder(stream) {
     downloadButton.addEventListener("click", () => {
       const a = document.createElement("a");
       a.href = audioUrl;
-      a.download = clipLabel.textContent || "MyUnnamedClip";
+      a.download = clipLabel.textContent || "MyUnnamedClip.webm";
       a.click();
     });
+
+    // Reset the Record button color and state after the recording ends
+    recordButton.style.backgroundColor = '';  // Reset to original color
+    recordButton.style.color = '';  // Reset text color
+
+    // Re-enable the buttons after recording
+    recordButton.disabled = false;
+    stopButton.disabled = true;
   };
 }
 
